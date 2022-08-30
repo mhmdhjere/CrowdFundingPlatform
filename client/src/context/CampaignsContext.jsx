@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import Swal from "sweetalert2";
-import { ContractABI, ContractAddress } from "../utils/constants";
+import { ContractABI } from "../utils/constants";
 
 export const CampaignsContext = React.createContext();
 
@@ -15,7 +15,7 @@ export const CampaignsProvider = ({ children }) => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const contract = new ethers.Contract(
-        ContractAddress,
+        process.env.REACT_APP_CONTRACT_ADDRESS,
         ContractABI,
         provider
       );
@@ -31,7 +31,7 @@ export const CampaignsProvider = ({ children }) => {
       window.ethereum.enable();
       const signer = provider.getSigner();
       const contract = new ethers.Contract(
-        ContractAddress,
+        process.env.REACT_APP_CONTRACT_ADDRESS,
         ContractABI,
         signer
       );
